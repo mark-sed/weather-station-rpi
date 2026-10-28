@@ -23,12 +23,12 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico CACHE STRING "Board type")
+set(PICO_BOARD pico2_w CACHE STRING "Board type" FORCE)
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
 
-project(TemPIrature C CXX ASM)
+project(PiWeatherStation C CXX ASM)
 
 # Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
@@ -42,27 +42,28 @@ add_subdirectory(Pico_ePaper_Code/c/examples)
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(TemPIrature TemPIrature.c )
+add_executable(PiWeatherStation PiWeatherStation.c )
 
-pico_set_program_name(TemPIrature "TemPIrature")
-pico_set_program_version(TemPIrature "0.1")
+pico_set_program_name(PiWeatherStation "PiWeatherStation")
+pico_set_program_version(PiWeatherStation "0.1")
 
 # Modify the below lines to enable/disable output over UART/USB
-pico_enable_stdio_uart(TemPIrature 0)
-pico_enable_stdio_usb(TemPIrature 0)
+pico_enable_stdio_uart(PiWeatherStation 0)
+pico_enable_stdio_usb(PiWeatherStation 1)
 
 # Add the standard library to the build
-target_link_libraries(TemPIrature
+target_link_libraries(PiWeatherStation
     pico_stdlib
     Config
     ePaper
     Fonts
     GUI
     examples
-    hardware_spi)
+    hardware_spi
+    pico_cyw43_arch_lwip_threadsafe_background)
 
 # Add the standard include files to the build
-target_include_directories(TemPIrature PRIVATE
+target_include_directories(PiWeatherStation PRIVATE
         ${CMAKE_CURRENT_LIST_DIR}
     ${CMAKE_CURRENT_LIST_DIR}/Pico_ePaper_Code/c/lib/Config
     ${CMAKE_CURRENT_LIST_DIR}/Pico_ePaper_Code/c/lib/e-Paper
@@ -71,5 +72,5 @@ target_include_directories(TemPIrature PRIVATE
     ${CMAKE_CURRENT_LIST_DIR}/Pico_ePaper_Code/c/examples
 )
 
-pico_add_extra_outputs(TemPIrature)
+pico_add_extra_outputs(PiWeatherStation)
 

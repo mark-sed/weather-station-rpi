@@ -1,11 +1,36 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pico/stdlib.h"
+#include "pico/cyw43_arch.h"
+#include "wifi_config.h"
 #include "Pico_ePaper_Code/c/lib/e-Paper/EPD_2in13_V2.h"
 #include "Pico_ePaper_Code/c/examples/EPD_Test.h"
 
 int main(void)
 {
+    stdio_init_all();
+    sleep_ms(2000);
+
+    printf("Initializing Wi-Fi...\n");
+    if (cyw43_arch_init_with_country(CYW43_COUNTRY_CZECH_REPUBLIC) != 0) {
+        printf("CYW43 initialization failed\n");
+        return -1;
+    }
+
+    cyw43_arch_enable_sta_mode();
+    printf("Connecting to Wi-Fi...\n");
+    int wifi_status = cyw43_arch_wifi_connect_timeout_ms(
+            WIFI_SSID,
+            WIFI_PASSWORD,
+            CYW43_AUTH_WPA2_AES_PSK,
+            30000);
+    if (wifi_status != 0) {
+        printf("Wi-Fi connection failed (error %d)\n", wifi_status);
+        cyw43_arch_deinit();
+        return -1;
+    }
+    printf("Wi-Fi connected successfully (status %d)\n", wifi_status);
+
     if (DEV_Module_Init() != 0) {
         return -1;
     }

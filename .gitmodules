@@ -1,3 +1,6 @@
 [submodule "Pico_ePaper_Code"]
 	path = Pico_ePaper_Code
 	url = https://github.com/waveshareteam/Pico_ePaper_Code
+[submodule "picohttps"]
+	path = picohttps
+	url = https://github.com/marceloalcocer/picohttps.git
