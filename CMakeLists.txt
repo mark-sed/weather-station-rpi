@@ -23,7 +23,7 @@ if (EXISTS ${picoVscode})
     include(${picoVscode})
 endif()
 # ====================================================================================
-set(PICO_BOARD pico2_w CACHE STRING "Board type" FORCE)
+set(PICO_BOARD pico CACHE STRING "Board type" FORCE)
 
 # Pull in Raspberry Pi Pico SDK (must be before project)
 include(pico_sdk_import.cmake)
@@ -42,7 +42,7 @@ add_subdirectory(Pico_ePaper_Code/c/examples)
 
 # Add executable. Default name is the project name, version 0.1
 
-add_executable(PiWeatherStation PiWeatherStation.c )
+add_executable(PiWeatherStation PiWeatherStation.c cJSON.c)
 
 pico_set_program_name(PiWeatherStation "PiWeatherStation")
 pico_set_program_version(PiWeatherStation "0.1")
@@ -60,7 +60,8 @@ target_link_libraries(PiWeatherStation
     GUI
     examples
     hardware_spi
-    pico_cyw43_arch_lwip_threadsafe_background)
+    #pico_cyw43_arch_lwip_threadsafe_background
+    )
 
 # Add the standard include files to the build
 target_include_directories(PiWeatherStation PRIVATE

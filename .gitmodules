@@ -4,3 +4,6 @@
 [submodule "picohttps"]
 	path = picohttps
 	url = https://github.com/marceloalcocer/picohttps.git
+[submodule "pico_dht"]
+	path = pico_dht
+	url = https://github.com/vmilea/pico_dht
