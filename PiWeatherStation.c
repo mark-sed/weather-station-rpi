@@ -715,6 +715,7 @@ int main(void) {
 
                 if (weather_data.invalid) {
                     printf("Invalid weather data\n");
+                    printf("Weather API response:\n%s\n", json_str);
                     if (render_error("Chyba pri ziskavani dat o pocasi")) {
                         printf("Failed to render error message\n");
                         return -1;
