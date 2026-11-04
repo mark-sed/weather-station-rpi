@@ -15,6 +15,13 @@
 #define LWIP_DNS                    1
 #define LWIP_UDP                    1
 #define LWIP_TCP                    1
+#define LWIP_ALTCP                  1
+#define LWIP_ALTCP_TLS              1
+#define LWIP_ALTCP_TLS_MBEDTLS      1
+#define ALTCP_MBEDTLS_AUTHMODE      MBEDTLS_SSL_VERIFY_NONE
+#define ALTCP_MBEDTLS_LIB_DEBUG     LWIP_DBG_ON
+//#define LWIP_DEBUG 1
+//#define ALTCP_MBEDTLS_DEBUG LWIP_DBG_ON
 
 #define TCP_MSS                     1460
 #define TCP_WND                     (8 * TCP_MSS)
